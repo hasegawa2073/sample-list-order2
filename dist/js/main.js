@@ -1,7 +1,7 @@
 "use strict";
 document.addEventListener('DOMContentLoaded', function () {
     const todo = document.querySelector('.todo__ul');
-    const lists = document.querySelectorAll('.todo__li');
+    let lists = document.querySelectorAll('.todo__li');
     const heightArray = new Array();
     const listTopArray = new Array();
     lists.forEach((list) => {
@@ -14,12 +14,16 @@ document.addEventListener('DOMContentLoaded', function () {
         listTopArray.push(accu);
         return accu + curr;
     }, 0);
-    // リストそれぞれに絶対配置の値を割り当てる
-    lists.forEach((list, index) => {
-        const target = list;
-        target.style.top = `${listTopArray[index]}px`;
-        target.style.left = '0px';
-    });
+    // リストそれぞれに絶対配置の値を割り当てる関数
+    const arrangementList = () => {
+        lists = document.querySelectorAll('.todo__li');
+        lists.forEach((list, index) => {
+            const target = list;
+            target.style.top = `${listTopArray[index]}px`;
+            target.style.left = '0px';
+        });
+    };
+    arrangementList();
     // マウスが入ってきた位置の変数
     let startMouseX;
     let startMouseY;
@@ -79,10 +83,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const currentTarget = e.currentTarget;
             currentTarget.style.left = '0px';
             currentTarget.classList.remove('grabbing');
+            arrangementList();
         });
         target.addEventListener('mouseout', function (e) {
             const currentTarget = e.currentTarget;
             currentTarget.classList.remove('grabbing');
+            arrangementList();
         });
     });
 });

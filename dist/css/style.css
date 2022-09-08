@@ -30,7 +30,7 @@ html {
   box-sizing: border-box;
   cursor: grab;
   transform-origin: center center;
-  transition: transform 0.2s linear, left 0.8s ease;
+  transition: transform 0.2s linear, top 0.8s ease, left 0.8s ease;
 }
 .todo__li::before {
   content: "・";
