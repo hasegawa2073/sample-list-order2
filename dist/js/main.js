@@ -32,7 +32,22 @@ document.addEventListener('DOMContentLoaded', function () {
     // 移動前のリストの座標
     let startTargetX;
     let startTargetY;
-    lists.forEach((list) => {
+    // 渡ってきたリストの配列をtopの値順にして返す関数 (見た目とDOMの順番を揃えるための関数)
+    const topOrderListArrayFactory = (listArray) => {
+        const topOrderListArray = new Array();
+        const topKeyListMap = new Map();
+        listArray.forEach((list) => {
+            const top = parseInt(list.style.top);
+            topKeyListMap.set(list, top);
+        });
+        // topの値順に並べ替え(昇順)
+        const topOrderListMap = new Map([...topKeyListMap].sort((a, b) => a[1] - b[1]));
+        for (const [key] of topOrderListMap) {
+            topOrderListArray.push(key);
+        }
+        return topOrderListArray;
+    };
+    lists.forEach((list, index, array) => {
         const target = list;
         target.addEventListener('mousedown', function (e) {
             const currentTarget = e.currentTarget;
@@ -54,6 +69,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const moveTargetY = startTargetY + moveMouseY;
                 target.style.left = `${moveTargetX}px`;
                 target.style.top = `${moveTargetY}px`;
+                // リストの見た目の順番とDOMの順番を揃える
+                topOrderListArrayFactory(array).forEach((list) => {
+                    todo?.append(list);
+                });
             }
         });
         target.addEventListener('mouseup', function (e) {
