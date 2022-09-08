@@ -30,7 +30,7 @@ html {
   box-sizing: border-box;
   cursor: grab;
   transform-origin: center center;
-  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, left 0.8s ease;
 }
 .todo__li::before {
   content: "・";
@@ -62,4 +62,5 @@ html {
 .todo__li.grabbing {
   transform: scale(1.06);
   cursor: grabbing;
+  transition: left 0s;
 }
