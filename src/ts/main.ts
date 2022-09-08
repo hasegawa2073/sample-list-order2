@@ -18,4 +18,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const target: HTMLElement = list as HTMLElement;
     target.style.top = `${listTopArray[index]}px`;
   });
+  lists.forEach((list) => {
+    const target: HTMLElement = list as HTMLElement;
+    target.addEventListener('mousedown', function (e: any) {
+      const currentTarget: HTMLElement = e.currentTarget;
+      currentTarget.classList.add('grabbing');
+    });
+    target.addEventListener('mouseup', function (e: any) {
+      const currentTarget: HTMLElement = e.currentTarget;
+      currentTarget.classList.remove('grabbing');
+    });
+    target.addEventListener('mouseout', function (e: any) {
+      const currentTarget: HTMLElement = e.currentTarget;
+      currentTarget.classList.remove('grabbing');
+    });
+  });
 });
