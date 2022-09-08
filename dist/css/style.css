@@ -38,19 +38,19 @@ html {
 .todo__li:hover {
   transform: scale(1.03);
 }
-.todo__li:nth-child(1) {
+.todo__li-1 {
   background-color: #bababa;
 }
-.todo__li:nth-child(2) {
+.todo__li-2 {
   background-color: #a5a5a5;
 }
-.todo__li:nth-child(3) {
+.todo__li-3 {
   background-color: #919191;
 }
-.todo__li:nth-child(4) {
+.todo__li-4 {
   background-color: #7c7c7c;
 }
-.todo__li:nth-child(5) {
+.todo__li-5 {
   background-color: #686868;
 }
 .todo__li:first-child {

@@ -35,7 +35,7 @@ html {
       transform: scale(1.03);
     }
     @for $i from 1 through 5 {
-      &:nth-child(#{$i}) {
+      &-#{$i} {
         background-color: darken($color: #cecece, $amount: $i * 8%);
       }
     }
