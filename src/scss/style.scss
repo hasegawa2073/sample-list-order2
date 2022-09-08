@@ -1,0 +1,53 @@
+:root {
+  --font-color: #ffffff;
+  --todo-width: 100%;
+  --todo-max-width: 300px;
+}
+html {
+  font-size: 62.5%;
+}
+
+.todo {
+  margin-top: 200px;
+  &__ul {
+    position: relative;
+    margin: 0 auto;
+    max-width: var(--todo-max-width);
+    width: var(--todo-width);
+  }
+  &__li {
+    position: absolute;
+    margin: 0 auto;
+    padding: 15px 0 15px 13px;
+    max-width: var(--todo-max-width);
+    width: var(--todo-width);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 1.6rem;
+    color: var(--font-color);
+    box-sizing: border-box;
+    cursor: grab;
+    transform-origin: center center;
+    transition: transform 0.2s linear;
+    &::before {
+      content: '・';
+    }
+    &:hover {
+      transform: scale(1.03);
+    }
+    @for $i from 1 through 5 {
+      &:nth-child(#{$i}) {
+        background-color: darken($color: #cecece, $amount: $i * 8%);
+      }
+    }
+    &:first-child {
+      border-radius: 5px 5px 0 0;
+    }
+    &:last-child {
+      border-radius: 0 0 5px 5px;
+    }
+    &.grabbing {
+      transform: scale(1.03);
+      cursor: grabbing;
+    }
+  }
+}

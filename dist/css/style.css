@@ -1,1 +1,65 @@
+@charset "UTF-8";
+:root {
+  --font-color: #ffffff;
+  --todo-width: 100%;
+  --todo-max-width: 300px;
+}
 
+html {
+  font-size: 62.5%;
+}
+
+.todo {
+  margin-top: 200px;
+}
+.todo__ul {
+  position: relative;
+  margin: 0 auto;
+  max-width: var(--todo-max-width);
+  width: var(--todo-width);
+}
+.todo__li {
+  position: absolute;
+  margin: 0 auto;
+  padding: 15px 0 15px 13px;
+  max-width: var(--todo-max-width);
+  width: var(--todo-width);
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 1.6rem;
+  color: var(--font-color);
+  box-sizing: border-box;
+  cursor: grab;
+  transform-origin: center center;
+  transition: transform 0.2s linear;
+}
+.todo__li::before {
+  content: "・";
+}
+.todo__li:hover {
+  transform: scale(1.03);
+}
+.todo__li:nth-child(1) {
+  background-color: #bababa;
+}
+.todo__li:nth-child(2) {
+  background-color: #a5a5a5;
+}
+.todo__li:nth-child(3) {
+  background-color: #919191;
+}
+.todo__li:nth-child(4) {
+  background-color: #7c7c7c;
+}
+.todo__li:nth-child(5) {
+  background-color: #686868;
+}
+.todo__li:first-child {
+  border-radius: 5px 5px 0 0;
+}
+.todo__li:last-child {
+  border-radius: 0 0 5px 5px;
+}
+.todo__li.grabbing {
+  transform: scale(1.03);
+  cursor: grabbing;
+}
