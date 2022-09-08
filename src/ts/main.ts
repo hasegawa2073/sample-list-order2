@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
       currentMouseY = e.clientY;
       moveMouseX = currentMouseX - startMouseX;
       moveMouseY = currentMouseY - startMouseY;
+      arrangementList();
       // リストを掴んだままマウスを移動しているとき
       if (currentTarget.classList.contains('grabbing')) {
         const moveTargetX = moveMouseX;
