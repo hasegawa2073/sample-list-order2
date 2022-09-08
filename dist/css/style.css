@@ -63,4 +63,5 @@ html {
   transform: scale(1.06);
   cursor: grabbing;
   transition: left 0s;
+  z-index: 1000;
 }
