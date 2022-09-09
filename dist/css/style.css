@@ -35,8 +35,10 @@ html {
 .todo__li::before {
   content: "・";
 }
-.todo__li:hover {
-  transform: scale(1.03);
+@media (hover: hover) {
+  .todo__li:hover {
+    transform: scale(1.03);
+  }
 }
 .todo__li-1 {
   background-color: #bababa;

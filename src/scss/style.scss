@@ -31,8 +31,10 @@ html {
     &::before {
       content: '・';
     }
-    &:hover {
-      transform: scale(1.03);
+    @media (hover: hover) {
+      &:hover {
+        transform: scale(1.03);
+      }
     }
     @for $i from 1 through 5 {
       &-#{$i} {
