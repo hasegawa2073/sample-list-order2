@@ -24,6 +24,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
     arrangementList();
+    // タッチがスターチした位置の変数
+    let startTouchX;
+    let startTouchY;
+    // タッチを動かしているときタッチの位置の変数
+    let currentTouchX;
+    let currentTouchY;
+    // タッチの移動距離の変数
+    let moveTouchX;
+    let moveTouchY;
     // マウスが入ってきた位置の変数
     let startMouseX;
     let startMouseY;
@@ -53,6 +62,39 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     lists.forEach((list, index, array) => {
         const target = list;
+        target.addEventListener('touchstart', function (e) {
+            const currentTarget = e.currentTarget;
+            startTouchX = e.pageX;
+            startTouchY = e.pageY;
+            startTargetX = parseInt(currentTarget.style.left);
+            startTargetY = parseInt(currentTarget.style.top);
+            currentTarget.classList.add('grabbing');
+        });
+        target.addEventListener('touchmove', function (e) {
+            e.preventDefault();
+            const currentTarget = e.currentTarget;
+            currentTouchX = e.pageX;
+            currentTouchY = e.pageY;
+            moveTouchX = currentTouchX - startTouchX;
+            moveTouchY = currentTouchY - startTouchY;
+            // リストを掴んだままタッチが移動しているとき
+            if (currentTarget.classList.contains('grabbing')) {
+                const moveTargetX = moveTouchX;
+                const moveTargetY = startTargetY + moveTouchY;
+                target.style.left = `${moveTargetX}px`;
+                target.style.top = `${moveTargetY}px`;
+                // リストの見た目の順番とDOMの順番を揃える
+                topOrderListArrayFactory(array).forEach((list) => {
+                    todo?.append(list);
+                });
+            }
+        });
+        target.addEventListener('touchend', function (e) {
+            const currentTarget = e.currentTarget;
+            currentTarget.classList.remove('grabbing');
+            currentTarget.style.left = '0px';
+            arrangementList();
+        });
         target.addEventListener('mousedown', function (e) {
             const currentTarget = e.currentTarget;
             startMouseX = e.clientX;

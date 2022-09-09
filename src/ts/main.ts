@@ -24,6 +24,15 @@ document.addEventListener('DOMContentLoaded', function () {
   };
   arrangementList();
 
+  // タッチがスターチした位置の変数
+  let startTouchX: number;
+  let startTouchY: number;
+  // タッチを動かしているときタッチの位置の変数
+  let currentTouchX: number;
+  let currentTouchY: number;
+  // タッチの移動距離の変数
+  let moveTouchX: number;
+  let moveTouchY: number;
   // マウスが入ってきた位置の変数
   let startMouseX: number;
   let startMouseY: number;
@@ -57,6 +66,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
   lists.forEach((list, index, array) => {
     const target: HTMLElement = list as HTMLElement;
+    target.addEventListener('touchstart', function (e: any) {
+      const currentTarget: HTMLElement = e.currentTarget;
+      startTouchX = e.pageX;
+      startTouchY = e.pageY;
+      startTargetX = parseInt(currentTarget.style.left);
+      startTargetY = parseInt(currentTarget.style.top);
+      currentTarget.classList.add('grabbing');
+    });
+    target.addEventListener('touchmove', function (e: any) {
+      e.preventDefault();
+      const currentTarget: HTMLElement = e.currentTarget;
+      currentTouchX = e.pageX;
+      currentTouchY = e.pageY;
+      moveTouchX = currentTouchX - startTouchX;
+      moveTouchY = currentTouchY - startTouchY;
+      // リストを掴んだままタッチが移動しているとき
+      if (currentTarget.classList.contains('grabbing')) {
+        const moveTargetX = moveTouchX;
+        const moveTargetY = startTargetY + moveTouchY;
+        target.style.left = `${moveTargetX}px`;
+        target.style.top = `${moveTargetY}px`;
+        // リストの見た目の順番とDOMの順番を揃える
+        topOrderListArrayFactory(array as any).forEach((list) => {
+          todo?.append(list);
+        });
+      }
+    });
+    target.addEventListener('touchend', function (e: any) {
+      const currentTarget: HTMLElement = e.currentTarget;
+      currentTarget.classList.remove('grabbing');
+      currentTarget.style.left = '0px';
+      arrangementList();
+    });
     target.addEventListener('mousedown', function (e: any) {
       const currentTarget: HTMLElement = e.currentTarget;
       startMouseX = e.clientX;
